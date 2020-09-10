@@ -64,19 +64,19 @@ def add_classes(cal, offering_code, coursecode):
             if i == 5:
                 continue
 
-            # add tutorial    
+            # add tutorial
             if show_tut:
-                event_name = course.upper(), class_code, "TUT"
-
-                start = str(dt.strftime("%Y-%m-%d"), tut_start+":00:00")
-                end = str(dt.strftime("%Y-%m-%d"), lab_start +":00:00")
+                event_name = " ".join([course.upper(), class_code, "TUT"])
+                print(event_name)
+                start = dt.strftime("%Y-%m-%d")+ " " + tut_start+":00:00"
+                end = dt.strftime("%Y-%m-%d") + " " + lab_start +":00:00"
 
                 cal.events.add(create_event(event_name, start, end))
 
             # add lab
-            event_name = coursecode.upper(), class_code, "TUT"
-            start = str(dt.strftime("%Y-%m-%d"), lab_start+":00:00")
-            end = str(dt.strftime("%Y-%m-%d"), lab_end+":00:00")
+            event_name = " ".join([coursecode.upper(), class_code, "LAB"])
+            start = dt.strftime("%Y-%m-%d") + " " + lab_start+":00:00"
+            end = dt.strftime("%Y-%m-%d") + " " + lab_end+":00:00"
             cal.events.add(create_event(event_name, start, end))
 
 def get_offering():
@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
     add_classes(c, offering, course)
 
-    filename = name +'-' + course + int(time.time()) + '-calare-tutor-timetable.ics'
+    filename = '-'.join([name, course, str(int(time.time())), '-calare-tutor-timetable.ics'])
     if os.path.isfile('./' + filename):
         print("Looks like the file", filename, "already exists :(\nPlease delete/rename it")
         sys.exit(1)
