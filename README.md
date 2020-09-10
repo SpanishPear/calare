@@ -28,3 +28,4 @@ Then, you will infinitely be asked to add classes, and you will be prompted for:
 Finally, the ICS file will be created for you to input into your Outlook or GCal :) 
 
 Enjoy!
+  
