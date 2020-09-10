@@ -6,6 +6,9 @@
 Calare is a Tool designed for UNSW Tutors who are looking for a way to export their teaching timetable to an ICS file.
 
 It works under the assumption that you teach a 1 hour tutorial, followed by a 2 hour lab. 
+
+To edit these assumptions, see constants.py
+
 It also does not schedule classes for midsemester break (week 6).
 
 Additionally, this tool currently only works for offerings that are in the range:
