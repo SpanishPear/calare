@@ -6,6 +6,7 @@ from datetime import date
 from dateutil.rrule import  MO, TU, WE, TH, FR
 
 NUM_WEEKS = 10
+MIDSEMWEEK = 6
 TUT_LENGTH = 1
 LAB_LENGTH = 2
 

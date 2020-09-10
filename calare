@@ -4,7 +4,7 @@ import os
 import time
 from ics import Calendar, Event
 from dateutil.rrule import rrule, WEEKLY
-from constants import NUM_WEEKS, TUT_LENGTH, LAB_LENGTH, DAYS, START_DATES
+from constants import MIDSEMWEEK, NUM_WEEKS, TUT_LENGTH, LAB_LENGTH, DAYS, START_DATES
 
 
 def create_event(event_name, event_start, event_end):
@@ -61,7 +61,7 @@ def add_classes(cal, offering_code, coursecode):
         date_rule = rrule(WEEKLY, dtstart=start_date, count=NUM_WEEKS, byweekday=(DAYS[class_code[0]]))
         for i, dt in enumerate(date_rule):
             # midsem break - no classes
-            if i == 5:
+            if i == MIDSEMWEEK - 1:
                 continue
 
             # add tutorial
