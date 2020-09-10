@@ -67,7 +67,6 @@ def add_classes(cal, offering_code, coursecode):
             # add tutorial
             if show_tut:
                 event_name = " ".join([course.upper(), class_code, "TUT"])
-                print(event_name)
                 start = dt.strftime("%Y-%m-%d")+ " " + tut_start+":00:00"
                 end = dt.strftime("%Y-%m-%d") + " " + lab_start +":00:00"
 
