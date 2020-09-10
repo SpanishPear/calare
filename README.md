@@ -3,7 +3,8 @@
 
 ## Introduction
 
-Calare is a Tool designed for UNSW Tutors who are looking for a way to export their teaching timetable to an ICS file
+Calare is a Tool designed for UNSW Tutors who are looking for a way to export their teaching timetable to an ICS file.
+
 It works under the assumption that you teach a 1 hour tutorial, followed by a 2 hour lab. 
 It also does not schedule classes for midsemester break (week 6).
 
