@@ -10,7 +10,7 @@ It also does not schedule classes for midsemester break (week 6).
 
 Additionally, this tool currently only works for offerings that are in the range:
 ```
- 20T3<= offering <= 21T3
+ 20T3 <= offering <= 21T3
 ```
 
 It will be extended when 2022 term dates are availiable. 
