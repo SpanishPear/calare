@@ -53,7 +53,7 @@ Enjoy!
 
 I forgot about daylight savings - so right now it's hardcoded to work with 20T3 daylight saving shenannigans.
 
-see #1 and #2 for more details 
+see [#1](https://github.com/MrSpanishPear/calare/issues/1) and [#2](https://github.com/MrSpanishPear/calare/issues/2) for more details 
 
 
 Pretty fragile, but hopefully you can modify it to suit your needs! If you have any troubles, please tweet me @SpanishPear :D
