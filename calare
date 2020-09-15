@@ -2,10 +2,10 @@
 import sys
 import os
 import time
+from datetime import datetime, timedelta
 from ics import Calendar, Event
 from dateutil.rrule import rrule, WEEKLY
 from constants import MIDSEMWEEK, NUM_WEEKS, TUT_LENGTH, LAB_LENGTH, DAYS, START_DATES
-
 
 def create_event(event_name, event_start, event_end):
     '''
@@ -53,9 +53,9 @@ def add_classes(cal, offering_code, coursecode):
         start_date = START_DATES.get(year).get(term)
 
 
-        tut_start = class_code[1:3]
-        lab_start = str(int(tut_start) + TUT_LENGTH)
-        lab_end = str(int(lab_start) + LAB_LENGTH)
+        tut_start = int(class_code[1:3])
+        lab_start = int(tut_start) + TUT_LENGTH
+        lab_end = int(lab_start) + LAB_LENGTH
         # generate the weeks
 
         date_rule = rrule(WEEKLY, dtstart=start_date, count=NUM_WEEKS, byweekday=(DAYS[class_code[0]]))
@@ -67,15 +67,22 @@ def add_classes(cal, offering_code, coursecode):
             # add tutorial
             if show_tut:
                 event_name = " ".join([course.upper(), class_code, "TUT"])
-                start = dt.strftime("%Y-%m-%d")+ " " + tut_start+":00:00"
-                end = dt.strftime("%Y-%m-%d") + " " + lab_start +":00:00"
+
+                # hacky UTC fix - subtract 10 hours LOL
+                # this might need to change to 9 when daylight savings ends
+                start_dt = datetime(dt.year, dt.month, dt.day, tut_start, 0, 0) - timedelta(hours=10)
+                start = start_dt.strftime("%Y-%m-%d %H:%M:%S")
+                end_dt = datetime(dt.year, dt.month, dt.day, lab_start, 0, 0) - timedelta(hours=10)
+                end = end_dt.strftime("%Y-%m-%d %H:%M:%S")
 
                 cal.events.add(create_event(event_name, start, end))
 
             # add lab
             event_name = " ".join([coursecode.upper(), class_code, "LAB"])
-            start = dt.strftime("%Y-%m-%d") + " " + lab_start+":00:00"
-            end = dt.strftime("%Y-%m-%d") + " " + lab_end+":00:00"
+            start_dt = datetime(dt.year, dt.month, dt.day, lab_start, 0, 0) - timedelta(hours=10)
+            start = start_dt.strftime("%Y-%m-%d %H:%M:%S")
+            end_dt = datetime(dt.year, dt.month, dt.day, lab_end, 0, 0) - timedelta(hours=10)
+            end = end_dt.strftime("%Y-%m-%d %H:%M:%S")
             cal.events.add(create_event(event_name, start, end))
 
 def get_offering():
