@@ -58,11 +58,16 @@ def add_classes(cal, offering_code, coursecode):
         lab_end = int(lab_start) + LAB_LENGTH
         # generate the weeks
 
+        #TIME_OFFSET to account for the strange UTC bug 
+        time_offset = 10
         date_rule = rrule(WEEKLY, dtstart=start_date, count=NUM_WEEKS, byweekday=(DAYS[class_code[0]]))
         for i, dt in enumerate(date_rule):
             # midsem break - no classes
             if i == MIDSEMWEEK - 1:
                 continue
+
+            if i > 3:
+                time_offset = 11
 
             # add tutorial
             if show_tut:
@@ -70,18 +75,18 @@ def add_classes(cal, offering_code, coursecode):
 
                 # hacky UTC fix - subtract 10 hours LOL
                 # this might need to change to 9 when daylight savings ends
-                start_dt = datetime(dt.year, dt.month, dt.day, tut_start, 0, 0) - timedelta(hours=10)
+                start_dt = datetime(dt.year, dt.month, dt.day, tut_start, 0, 0) - timedelta(hours=time_offset)
                 start = start_dt.strftime("%Y-%m-%d %H:%M:%S")
-                end_dt = datetime(dt.year, dt.month, dt.day, lab_start, 0, 0) - timedelta(hours=10)
+                end_dt = datetime(dt.year, dt.month, dt.day, lab_start, 0, 0) - timedelta(hours=time_offset)
                 end = end_dt.strftime("%Y-%m-%d %H:%M:%S")
 
                 cal.events.add(create_event(event_name, start, end))
 
             # add lab
             event_name = " ".join([coursecode.upper(), class_code, "LAB"])
-            start_dt = datetime(dt.year, dt.month, dt.day, lab_start, 0, 0) - timedelta(hours=10)
+            start_dt = datetime(dt.year, dt.month, dt.day, lab_start, 0, 0) - timedelta(hours=time_offset)
             start = start_dt.strftime("%Y-%m-%d %H:%M:%S")
-            end_dt = datetime(dt.year, dt.month, dt.day, lab_end, 0, 0) - timedelta(hours=10)
+            end_dt = datetime(dt.year, dt.month, dt.day, lab_end, 0, 0) - timedelta(hours=time_offset)
             end = end_dt.strftime("%Y-%m-%d %H:%M:%S")
             cal.events.add(create_event(event_name, start, end))
 
