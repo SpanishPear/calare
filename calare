@@ -2,10 +2,20 @@
 import sys
 import os
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
+import pytz
 from ics import Calendar, Event
 from dateutil.rrule import rrule, WEEKLY
 from constants import MIDSEMWEEK, NUM_WEEKS, TUT_LENGTH, LAB_LENGTH, DAYS, START_DATES
+
+def utc_to_local(utc_dt):
+    '''
+        Should convert UTC to local time, and handle daylight savings
+        https://stackoverflow.com/a/48602841
+    '''
+    local_tz = pytz.timezone('Australia/Sydney')
+    local_dt = local_tz.localize(utc_dt, is_dst=None)
+    return local_dt.astimezone(pytz.utc)
 
 def create_event(event_name, event_start, event_end):
     '''
@@ -56,18 +66,14 @@ def add_classes(cal, offering_code, coursecode):
         tut_start = int(class_code[1:3])
         lab_start = int(tut_start) + TUT_LENGTH
         lab_end = int(lab_start) + LAB_LENGTH
-        # generate the weeks
 
-        #TIME_OFFSET to account for the strange UTC bug 
-        time_offset = 10
-        date_rule = rrule(WEEKLY, dtstart=start_date, count=NUM_WEEKS, byweekday=(DAYS[class_code[0]]))
+        # generate the weeks
+        weekday = DAYS[class_code[0]]
+        date_rule = rrule(WEEKLY, dtstart=start_date, count=NUM_WEEKS, byweekday=(weekday))
         for i, dt in enumerate(date_rule):
             # midsem break - no classes
             if i == MIDSEMWEEK - 1:
                 continue
-
-            if i > 3:
-                time_offset = 11
 
             # add tutorial
             if show_tut:
@@ -75,18 +81,18 @@ def add_classes(cal, offering_code, coursecode):
 
                 # hacky UTC fix - subtract 10 hours LOL
                 # this might need to change to 9 when daylight savings ends
-                start_dt = datetime(dt.year, dt.month, dt.day, tut_start, 0, 0) - timedelta(hours=time_offset)
+                start_dt = utc_to_local(datetime(dt.year, dt.month, dt.day, tut_start, 0, 0))
                 start = start_dt.strftime("%Y-%m-%d %H:%M:%S")
-                end_dt = datetime(dt.year, dt.month, dt.day, lab_start, 0, 0) - timedelta(hours=time_offset)
+                end_dt = utc_to_local(datetime(dt.year, dt.month, dt.day, lab_start, 0, 0))
                 end = end_dt.strftime("%Y-%m-%d %H:%M:%S")
 
                 cal.events.add(create_event(event_name, start, end))
 
             # add lab
             event_name = " ".join([coursecode.upper(), class_code, "LAB"])
-            start_dt = datetime(dt.year, dt.month, dt.day, lab_start, 0, 0) - timedelta(hours=time_offset)
+            start_dt = utc_to_local(datetime(dt.year, dt.month, dt.day, lab_start, 0, 0))
             start = start_dt.strftime("%Y-%m-%d %H:%M:%S")
-            end_dt = datetime(dt.year, dt.month, dt.day, lab_end, 0, 0) - timedelta(hours=time_offset)
+            end_dt = utc_to_local(datetime(dt.year, dt.month, dt.day, lab_end, 0, 0))
             end = end_dt.strftime("%Y-%m-%d %H:%M:%S")
             cal.events.add(create_event(event_name, start, end))
 
