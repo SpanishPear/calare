@@ -51,9 +51,6 @@ Enjoy!
 
 ## Notes
 
-I forgot about daylight savings - so right now it's hardcoded to work with 20T3 daylight saving shenannigans.
-
-see [#1](https://github.com/MrSpanishPear/calare/issues/1) and [#2](https://github.com/MrSpanishPear/calare/issues/2) for more details 
-
+Daylight savings bug fixed in 60c802b3bd11f46641df73a867b2b5f18255fba7
 
 Pretty fragile, but hopefully you can modify it to suit your needs! If you have any troubles, please tweet me @SpanishPear :D
