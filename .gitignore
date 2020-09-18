@@ -131,3 +131,4 @@ dmypy.json
 # secret
 credentials.py
 *.ics
+*.in
