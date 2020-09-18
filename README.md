@@ -51,6 +51,6 @@ Enjoy!
 
 ## Notes
 
-Daylight savings bug fixed in 60c802b3bd11f46641df73a867b2b5f18255fba7
+Daylight savings bug fixed in [5da477c](https://github.com/MrSpanishPear/calare/commit/60c802b3bd11f46641df73a867b2b5f18255fba7)
 
 Pretty fragile, but hopefully you can modify it to suit your needs! If you have any troubles, please tweet me @SpanishPear :D
