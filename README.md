@@ -33,6 +33,12 @@ Running the command
 ./calare
 ```
 
+or 
+
+```
+python3 calare
+```
+
 will lead you through an interactive sequence of steps. 
 
 You will initially be asked to provide
