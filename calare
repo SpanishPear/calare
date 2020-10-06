@@ -50,7 +50,8 @@ def add_classes(cal, offering_code):
         Continuously adds classes to the ICS.
         Uses user input of ClassCode and other settings
     '''
-    while input("Add a class? [y/n]: ").lower().startswith('y'):
+    addclass = input("Add a class? [y/n]: ")
+    while addclass.startswith('y'):
         print("---- Adding Class ----")
         print("If you enter some wrong information, answer q to restart that question\n")
 
@@ -99,6 +100,8 @@ def add_classes(cal, offering_code):
             # add lab
             event_name = " ".join([course.upper(), class_code, "LAB"])
             add_class_event(cal, lab_start, lab_end, dt, event_name)
+        addclass = input("Add a class? [y/n]: ")
+        if not addclass.startswith('y'): return
 
 
 def add_help_session(cal, offering_code):
@@ -175,19 +178,31 @@ if __name__ == "__main__":
     offering = get_offering()
 
     class_or_help_session = int(
-        input("Add Class (1) or Help Session(2): ").lower())
-    if class_or_help_session == 1:
-        add_classes(c, offering)
+        input("Add Class (1), Help Session(2) or finish(3): ").lower())
 
-    elif class_or_help_session == 2:
-        add_help_session(c, offering)
+    while (class_or_help_session):
+        if class_or_help_session == 1:
+            add_classes(c, offering)
+
+        elif class_or_help_session == 2:
+            add_help_session(c, offering)
+        
+        elif class_or_help_session == 3:
+            break
+
+        class_or_help_session =  int(input("Add Class (1), Help Session(2) or finish(3): ").lower())
+
 
     filename = '-'.join([name, offering, str(int(time.time())),
                          '-calare-tutor-timetable.ics'])
+                         
     if os.path.isfile('./' + filename):
         print("Looks like the file", filename,
               "already exists :(\nPlease delete/rename it")
         sys.exit(1)
 
     with open(filename, 'w') as output_file:
+        print(f"Outputting to {filename}...")
         output_file.writelines(c)
+
+    print("\nDone! Enjoy and please star this project on Github if it's been helpful!")
