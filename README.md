@@ -1,5 +1,8 @@
 # calare
 
+## Introduction
+
+Disclaimer - this is by no means a reflection of my coding abilities, it's a small tool that I spun up quickly, to work. Pls don't hire/fire me based on the quality of this code :(
 
 ## Introduction
 
