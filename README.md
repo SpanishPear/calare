@@ -27,7 +27,7 @@ It will be extended when 2022 term dates are availiable.
 
 First, install the needed requirements with: 
 ```
-pip3 -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 Running the command
