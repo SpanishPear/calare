@@ -74,6 +74,7 @@ def add_classes(cal, offering_code):
 
             show_tut = show_tut_input.startswith('y')
 
+        # ie 20T3 splits to 20 and T3
         year = offering_code[:2]
         term = offering_code[2:]
         start_date = START_DATES.get(year).get(term)
