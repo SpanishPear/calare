@@ -18,7 +18,7 @@ To edit these assumptions, see [constants.py](https://github.com/MrSpanishPear/c
 
 Additionally, this tool currently only works for offerings that are in the range:
 ```
- 20T3 <= offering <= 21T3
+ 20T3 <= offering <= 22T1
 ```
 
 It will be extended when 2022 term dates are availiable. 
