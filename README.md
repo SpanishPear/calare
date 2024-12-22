@@ -1,4 +1,7 @@
 # calare
+> [!WARNING]  
+> The functionality in this repo has been upstreamed to [CSESoc Notangles](https://notangles.devsoc.app/).
+> As such, the repo is now archived
 
 ## Introduction
 
